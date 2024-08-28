@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: guestbook-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guestbook-db
+  template:
+    metadata:
+      labels:
+        app: guestbook-db
+    spec:
+      containers:
+      - name: redis
+        image: redis:7.2.4
+        ports:
+        - containerPort: 6379
+
+# Run with `kubectl apply -f redis-deployment.yaml`
