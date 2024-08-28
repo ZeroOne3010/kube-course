@@ -21,9 +21,16 @@ spec:
         - containerPort: 6379
         args:
         - /redis/redis.conf
+        - --requirepass $(REDIS_PASSWORD)
         volumeMounts:
         - name: redis-config-volume
           mountPath: /redis/
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef: 
+              name: redis-secret
+              key: password
       volumes:
       - name: redis-config-volume
         configMap:

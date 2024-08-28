@@ -24,3 +24,8 @@ spec:
           value: redis # the Service name
         - name: REDIS_PORT
           value: "9000" # from the Service spec
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: password
