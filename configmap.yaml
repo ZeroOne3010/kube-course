@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: redis-config
 data:
-  loglevel: "notice"
+  redis.conf: |
+    loglevel notice

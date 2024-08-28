@@ -19,11 +19,14 @@ spec:
         image: redis:7.2.4
         ports:
         - containerPort: 6379
-        env:
-        - name: LOGLEVEL
-          valueFrom:
-            configMapKeyRef: 
-              name: redis-config
-              key: loglevel
+        args:
+        - /redis/redis.conf
+        volumeMounts:
+        - name: redis-config-volume
+          mountPath: /redis/
+      volumes:
+      - name: redis-config-volume
+        configMap:
+          name: redis-config
 
 # Run with `kubectl apply -f redis-deployment.yaml`
