@@ -1,0 +1,23 @@
+# For this to work, do `minikube addons enable ingress` first.
+# After deploying this, do `kubectl get ingress --watch` to find the IP address of the service.
+# Finally, as we don't have a DNS server, we need to simulate it
+# in Chrome, launching it on the command line with
+# * Linux: 'google-chrome --host-resolver-rules="MAP guestbook.local $(minikube ip)"' 
+# * Mac: 'minikube tunnel', 'open -a "Google Chrome" --args --host-resolver-rules="MAP guestbook.local 127.0.0.1"'
+# -- or by adding the IP and hostname into /etc/hosts: '192.168.xxx.yyy guestbook.local'
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: guestbook
+spec:
+  rules:
+  - host: guestbook.local
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: guestbook-service
+            port:
+              number: 8000
