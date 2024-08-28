@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guestbook
+  labels:
+    app: guestbook-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guestbook-server
+  template:
+    metadata:
+      labels:
+        app: guestbook-server
+    spec:
+      containers:
+      - name: gbook
+        image: ghcr.io/omoroifi/kubernetes-course-guestbook:latest
+        ports:
+        - containerPort: 3000
