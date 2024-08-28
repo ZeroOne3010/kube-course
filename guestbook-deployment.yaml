@@ -19,3 +19,8 @@ spec:
         image: ghcr.io/omoroifi/kubernetes-course-guestbook:latest
         ports:
         - containerPort: 3000
+        env:
+        - name: REDIS_HOST
+          value: redis # the Service name
+        - name: REDIS_PORT
+          value: "9000" # from the Service spec
